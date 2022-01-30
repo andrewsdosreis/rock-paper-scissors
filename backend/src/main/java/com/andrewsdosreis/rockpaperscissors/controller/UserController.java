@@ -19,7 +19,7 @@ public class UserController extends BaseController {
     }
 
     @GetMapping
-    public ResponseEntity<UserDto> generateSession() {
-        return ok(userService.createNewGameSession());
+    public ResponseEntity<UserDto> createNewUser() {
+        return ok(userService.createNewUser());
     }
 }

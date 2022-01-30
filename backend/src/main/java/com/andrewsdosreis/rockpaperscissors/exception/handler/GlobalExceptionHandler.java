@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,15 +19,6 @@ public class GlobalExceptionHandler {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private static final String ERROR = "Error => {}";
-
-    @ExceptionHandler({ Exception.class })
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<ErrorHandler> handle(Exception e, HttpServletRequest request) {
-        var errorHandler = createErrorHandler(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), request);
-        LOGGER.error(ERROR, e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorHandler);
-    }
 
     @ExceptionHandler({ UserKeyHeaderIsNotPresent.class })
     @ResponseBody
@@ -44,6 +36,24 @@ public class GlobalExceptionHandler {
         var errorHandler = createErrorHandler(HttpStatus.EXPECTATION_FAILED, e.getMessage(), request);
         LOGGER.error(ERROR, e.getMessage());
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(errorHandler);
+    }
+
+    @ExceptionHandler({ HttpRequestMethodNotSupportedException.class })
+    @ResponseBody
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public ResponseEntity<ErrorHandler> handleMethodNotAllowed(HttpRequestMethodNotSupportedException e, HttpServletRequest request) {
+        var errorHandler = createErrorHandler(HttpStatus.METHOD_NOT_ALLOWED, e.getMessage(), request);
+        LOGGER.error(ERROR, e.getMessage());
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorHandler);
+    }
+
+    @ExceptionHandler({ Exception.class })
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorHandler> handle(Exception e, HttpServletRequest request) {
+        var errorHandler = createErrorHandler(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), request);
+        LOGGER.error(ERROR, e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorHandler);
     }
 
     private ErrorHandler createErrorHandler(HttpStatus httpStatus, String message, HttpServletRequest request) {

@@ -1,5 +1,7 @@
 package com.andrewsdosreis.rockpaperscissors.model;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -47,6 +49,22 @@ public class TotalGamesPlayed {
 
     public void increaseTotalDraws() {
         this.totalDraws++;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof TotalGamesPlayed)) {
+            return false;
+        }
+        TotalGamesPlayed totalGamesPlayed = (TotalGamesPlayed) o;
+        return Objects.equals(totalRoundsPlayed, totalGamesPlayed.totalRoundsPlayed) && Objects.equals(totalWinsForPlayerOne, totalGamesPlayed.totalWinsForPlayerOne) && Objects.equals(totalWinsForPlayerTwo, totalGamesPlayed.totalWinsForPlayerTwo) && Objects.equals(totalDraws, totalGamesPlayed.totalDraws);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalRoundsPlayed, totalWinsForPlayerOne, totalWinsForPlayerTwo, totalDraws);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.andrewsdosreis.rockpaperscissors.controller.output;
 
+import java.util.Objects;
+
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -52,6 +54,22 @@ public class RoundPlayedDto {
 
     public void setRounds(Integer rounds) {
         this.rounds = rounds;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof RoundPlayedDto)) {
+            return false;
+        }
+        RoundPlayedDto roundPlayedDto = (RoundPlayedDto) o;
+        return Objects.equals(playerOne, roundPlayedDto.playerOne) && Objects.equals(playerTwo, roundPlayedDto.playerTwo) && Objects.equals(result, roundPlayedDto.result) && Objects.equals(rounds, roundPlayedDto.rounds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerOne, playerTwo, result, rounds);
     }
 
     @Override

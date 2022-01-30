@@ -19,11 +19,12 @@ public class RoundService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RoundService.class);
 
-    private Random random = new Random();
+    private Random random;
     private RoundRepository roundRepository;
 
-    public RoundService(RoundRepository roundRepository) {
+    public RoundService(RoundRepository roundRepository, Random random) {
         this.roundRepository = roundRepository;
+        this.random = random;
     }
 
     public List<Round> listAllRoundsFromSessionKey(String key) {
@@ -38,7 +39,7 @@ public class RoundService {
         Round round = new Round(playerOne.toString(), playerTwo.toString(), result.label);
         roundRepository.save(key, round);
 
-        return new RoundPlayedDto(playerOne.toString(), playerTwo.toString(), result, roundRepository.count(key));
+        return new RoundPlayedDto(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo), result, roundRepository.count(key));
     }
 
     public void restart(String key) {
@@ -48,14 +49,14 @@ public class RoundService {
     private ResultEnum checkResult(RockPaperScissorsEnum playerOne, RockPaperScissorsEnum playerTwo) {
         ResultEnum result = null;
 
-        if (playerOne.equals(playerTwo))
+        if (playerTwo.equals(playerOne))
             result = ResultEnum.DRAW;
-        else if (playerOne.equals(RockPaperScissorsEnum.PAPER))
+        else if (RockPaperScissorsEnum.PAPER.equals(playerOne))
             result = ResultEnum.PLAYER_ONE_WINS;
-        else if (playerOne.equals(RockPaperScissorsEnum.SCISSORS))
+        else if (RockPaperScissorsEnum.SCISSORS.equals(playerOne))
             result = ResultEnum.PLAYER_TWO_WINS;
         else
-            throw new CouldNotCheckResultException(playerOne.toString(), playerTwo.toString());
+            throw new CouldNotCheckResultException(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo));
 
         LOGGER.info("Player One choose -> {} | Player Two choose -> {} | Result -> {}", playerOne, playerTwo, result.label);
         return result;

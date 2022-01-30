@@ -18,4 +18,11 @@ public enum RockPaperScissorsEnum {
         }
         return null;
     }
+
+    public static String toString(RockPaperScissorsEnum e) {
+        if (e == null)
+            return "";
+        else
+            return e.toString();
+    }
 }

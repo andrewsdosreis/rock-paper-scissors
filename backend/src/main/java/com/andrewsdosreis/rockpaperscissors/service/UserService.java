@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     
-    public UserDto createNewGameSession() {
+    public UserDto createNewUser() {
         String key = generateKey();
         return new UserDto(key);
     }
