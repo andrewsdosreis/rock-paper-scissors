@@ -13,9 +13,9 @@ public class Interceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Optional<String> sessionHeader = Optional.ofNullable(request.getHeader("session"));
+        Optional<String> sessionHeader = Optional.ofNullable(request.getHeader("User-Key"));
         if (sessionHeader.isEmpty())
-            throw new Exception("Header SESSION is not valid");
+            throw new Exception("Header USER-KEY was not found!");
         return Boolean.TRUE;
     }
 }
