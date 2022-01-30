@@ -1,16 +1,22 @@
 package com.andrewsdosreis.rockpaperscissors.service;
 
+import com.andrewsdosreis.rockpaperscissors.controller.output.UserDto;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SessionService {
+public class UserService {
     
-    public String generateNewKey() {
+    public UserDto createNewGameSession() {
+        String key = generateKey();
+        return new UserDto(key);
+    }
+
+    private String generateKey() {
         int count = 30;
         Boolean letters = Boolean.TRUE;
         Boolean numbers = Boolean.TRUE;
         return RandomStringUtils.random(count, letters, numbers);
     }
-
 }
