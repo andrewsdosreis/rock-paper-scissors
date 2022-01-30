@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.andrewsdosreis.rockpaperscissors.controller.output.RoundPlayedDto;
+import com.andrewsdosreis.rockpaperscissors.exception.CouldNotCheckResultException;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
@@ -45,7 +46,7 @@ public class RoundService {
     }
 
     private ResultEnum checkResult(RockPaperScissorsEnum playerOne, RockPaperScissorsEnum playerTwo) {
-        ResultEnum result;
+        ResultEnum result = null;
 
         if (playerOne.equals(playerTwo))
             result = ResultEnum.DRAW;
@@ -54,9 +55,9 @@ public class RoundService {
         else if (playerOne.equals(RockPaperScissorsEnum.SCISSORS))
             result = ResultEnum.PLAYER_TWO_WINS;
         else
-            throw new RuntimeException();
+            throw new CouldNotCheckResultException(playerOne.toString(), playerTwo.toString());
 
-        LOGGER.info("PLAYER ONE CHOOSE -> {} | PLAYER TWO CHOOSE -> {} | RESULT -> {}", playerOne, playerTwo, result.label);
+        LOGGER.info("Player One choose -> {} | Player Two choose -> {} | Result -> {}", playerOne, playerTwo, result.label);
         return result;
     }
 
