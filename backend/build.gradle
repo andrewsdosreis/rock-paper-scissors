@@ -1,6 +1,8 @@
 plugins {
 	id 'org.springframework.boot' version '2.6.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.sonarqube' version '3.3'
+	id 'jacoco'
 	id 'java'
 }
 
@@ -13,6 +15,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -20,4 +24,31 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	jacoco {
+        destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
+        classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
+    }	
+}
+
+jacocoTestReport {
+    dependsOn test
+	
+	reports {
+			xml.required = true
+			csv.required = false
+			html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+		}
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+sonarqube {
+  properties {
+    property "sonar.projectKey", "andrewsdosreis_rock-paper-scissors"
+    property "sonar.organization", "andrewsdosreis"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
 }
