@@ -1,6 +1,7 @@
 package com.andrewsdosreis.rockpaperscissors.model;
 
 public enum RockPaperScissorsEnum {
+    
     ROCK(0), PAPER(1), SCISSORS(2);
 
     public final Integer value;
