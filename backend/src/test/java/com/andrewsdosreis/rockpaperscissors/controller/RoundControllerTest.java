@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.andrewsdosreis.rockpaperscissors.controller.output.RoundPlayedDto;
 import com.andrewsdosreis.rockpaperscissors.exception.handler.GlobalExceptionHandler;
-import com.andrewsdosreis.rockpaperscissors.interceptor.Interceptor;
+import com.andrewsdosreis.rockpaperscissors.interceptor.RequestInterceptor;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
@@ -43,7 +43,7 @@ class RoundControllerTest {
     GlobalExceptionHandler handler;
 
     @InjectMocks
-    Interceptor interceptor;
+    RequestInterceptor interceptor;
     
     @Mock
     RoundService roundService;
