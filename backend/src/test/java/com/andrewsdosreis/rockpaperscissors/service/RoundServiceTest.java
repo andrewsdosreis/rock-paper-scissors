@@ -45,7 +45,7 @@ class RoundServiceTest {
     @Test
     void test_listAllRoundsFromSessionKey_shouldReturnAnEmptyList() {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
-      
+
         List<Round> expected = new ArrayList<>();
 
         roundService.restart(key);
@@ -62,7 +62,7 @@ class RoundServiceTest {
 
         var expectedCounter = roundService.listAllRoundsFromSessionKey(key).size() + 1;
         var expected = new RoundPlayed(RockPaperScissorsEnum.ROCK.toString(), RockPaperScissorsEnum.ROCK.toString(),
-                ResultEnum.DRAW, expectedCounter);
+                ResultEnum.DRAW.label, expectedCounter);
 
         var actual = roundService.playOneRound(key);
         var actualCounter = roundService.listAllRoundsFromSessionKey(key).size();
@@ -79,7 +79,7 @@ class RoundServiceTest {
 
         var expectedCounter = roundService.listAllRoundsFromSessionKey(key).size() + 1;
         var expected = new RoundPlayed(RockPaperScissorsEnum.PAPER.toString(), RockPaperScissorsEnum.ROCK.toString(),
-                ResultEnum.PLAYER_ONE_WINS, expectedCounter);
+                ResultEnum.PLAYER_ONE_WINS.label, expectedCounter);
 
         var actual = roundService.playOneRound(key);
         var actualCounter = roundService.listAllRoundsFromSessionKey(key).size();
@@ -96,7 +96,7 @@ class RoundServiceTest {
 
         var expectedCounter = roundService.listAllRoundsFromSessionKey(key).size() + 1;
         var expected = new RoundPlayed(RockPaperScissorsEnum.SCISSORS.toString(), RockPaperScissorsEnum.ROCK.toString(),
-                ResultEnum.PLAYER_TWO_WINS, expectedCounter);
+                ResultEnum.PLAYER_TWO_WINS.label, expectedCounter);
 
         var actual = roundService.playOneRound(key);
         var actualCounter = roundService.listAllRoundsFromSessionKey(key).size();
@@ -112,8 +112,8 @@ class RoundServiceTest {
         when(random.nextInt(3)).thenReturn(4);
 
         assertThrows(CouldNotCheckResultException.class, () -> {
-			roundService.playOneRound(key);
-		});
+            roundService.playOneRound(key);
+        });
     }
 
     @Test
@@ -121,12 +121,12 @@ class RoundServiceTest {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
 
         when(random.nextInt(3)).thenReturn(0);
-        
+
         List<Round> expected = new ArrayList<>();
-        
+
         roundService.playOneRound(key);
         var countBeforeRestart = roundService.listAllRoundsFromSessionKey(key).size();
-        
+
         roundService.restart(key);
         var actual = roundService.listAllRoundsFromSessionKey(key);
 

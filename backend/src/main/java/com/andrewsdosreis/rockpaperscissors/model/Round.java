@@ -22,24 +22,12 @@ public class Round {
         return this.playerOne;
     }
 
-    public void setPlayerOne(String playerOne) {
-        this.playerOne = playerOne;
-    }
-
     public String getPlayerTwo() {
         return this.playerTwo;
     }
 
-    public void setPlayerTwo(String playerTwo) {
-        this.playerTwo = playerTwo;
-    }
-
     public String getResult() {
         return this.result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
     }
 
     @Override

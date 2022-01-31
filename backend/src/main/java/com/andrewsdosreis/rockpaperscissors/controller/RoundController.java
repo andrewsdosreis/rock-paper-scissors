@@ -2,6 +2,7 @@ package com.andrewsdosreis.rockpaperscissors.controller;
 
 import java.util.List;
 
+import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
 import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.service.RoundService;
@@ -36,7 +37,7 @@ public class RoundController extends BaseController {
     @PostMapping
     public ResponseEntity<RoundPlayed> playOneRound(@RequestHeader(name = SESSION_KEY) String key) {
         RoundPlayed roundPlayed = roundService.playOneRound(key);
-        totalGamesPlayedService.increaseTotalGamesPlayed(roundPlayed.getResult());
+        totalGamesPlayedService.increaseTotalGamesPlayed(ResultEnum.valueOfLabel(roundPlayed.getResult()));
         return ok(roundPlayed);
     }
 

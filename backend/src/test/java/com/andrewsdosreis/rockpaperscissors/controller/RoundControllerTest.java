@@ -82,8 +82,8 @@ class RoundControllerTest {
     void test_playOneRound_shouldPlay() throws Exception {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
         RoundPlayed roundPlayed = new RoundPlayed(RockPaperScissorsEnum.PAPER.toString(),
-                                                        RockPaperScissorsEnum.ROCK.toString(), 
-                                                        ResultEnum.PLAYER_ONE_WINS, 
+                                                        RockPaperScissorsEnum.ROCK.toString(),
+                                                        ResultEnum.PLAYER_ONE_WINS.label,
                                                         1);
 
         TotalGamesPlayed totalGamesPlayed = new TotalGamesPlayed();

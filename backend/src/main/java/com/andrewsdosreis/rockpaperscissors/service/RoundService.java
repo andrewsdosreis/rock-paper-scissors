@@ -39,7 +39,7 @@ public class RoundService {
         Round round = new Round(playerOne.toString(), playerTwo.toString(), result.label);
         roundRepository.save(key, round);
 
-        return new RoundPlayed(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo), result, roundRepository.count(key));
+        return new RoundPlayed(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo), result.label, roundRepository.count(key));
     }
 
     public void restart(String key) {

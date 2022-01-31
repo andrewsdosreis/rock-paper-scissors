@@ -9,13 +9,13 @@ public class RoundPlayed {
     
     private String playerOne;
     private String playerTwo;
-    private ResultEnum result;
+    private String result;
     private Integer rounds;
     
     public RoundPlayed() {
     }
 
-    public RoundPlayed(String playerOne, String playerTwo, ResultEnum result, Integer rounds) {
+    public RoundPlayed(String playerOne, String playerTwo, String result, Integer rounds) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.result = result;
@@ -26,32 +26,16 @@ public class RoundPlayed {
         return this.playerOne;
     }
 
-    public void setPlayerOne(String playerOne) {
-        this.playerOne = playerOne;
-    }
-
     public String getPlayerTwo() {
         return this.playerTwo;
     }
 
-    public void setPlayerTwo(String playerTwo) {
-        this.playerTwo = playerTwo;
-    }
-
-    public ResultEnum getResult() {
+    public String getResult() {
         return this.result;
-    }
-
-    public void setResult(ResultEnum result) {
-        this.result = result;
     }
 
     public Integer getRounds() {
         return this.rounds;
-    }
-
-    public void setRounds(Integer rounds) {
-        this.rounds = rounds;
     }
 
     @Override

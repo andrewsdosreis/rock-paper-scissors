@@ -7,19 +7,12 @@ public class Session {
     
     private String key;
 
-    public Session() {
-    }
-
     public Session(String key) {
         this.key = key;
     }
 
     public String getKey() {
         return this.key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     @Override
