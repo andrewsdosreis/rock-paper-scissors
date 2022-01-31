@@ -20,11 +20,11 @@ public class AppConfig {
 
     @Bean(name = "roundRepository")
     public RoundRepository roundRepository() {
-        return RoundDataSource.getInstance();
+        return new RoundDataSource();
     }
 
     @Bean(name = "totalGamesPlayedRepository")
     public TotalGamesPlayedRepository totalGamesPlayedRepository() {
-        return TotalGamesPlayedDataSource.getInstance();
+        return new TotalGamesPlayedDataSource();
     }
 }
