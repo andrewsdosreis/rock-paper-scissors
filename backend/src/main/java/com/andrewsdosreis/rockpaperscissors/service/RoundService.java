@@ -28,21 +28,25 @@ public class RoundService {
     }
 
     public List<Round> listAllRoundsFromSessionKey(String key) {
+        LOGGER.info("Listing all rounds from Session with key {}", key);
         return roundRepository.find(key);
     }
 
     public RoundPlayed playOneRound(String key) {
+        LOGGER.info("Starting to play");
         RockPaperScissorsEnum playerOne = generatePlayerOneChoice();
         RockPaperScissorsEnum playerTwo = generatePlayerTwoChoice();
         ResultEnum result = checkResult(playerOne, playerTwo);
+        roundRepository.save(key, new Round(playerOne.toString(), playerTwo.toString(), result.label));
 
-        Round round = new Round(playerOne.toString(), playerTwo.toString(), result.label);
-        roundRepository.save(key, round);
+        RoundPlayed roundPlayed = new RoundPlayed(playerOne.toString(), playerTwo.toString(), result.label, roundRepository.count(key));
+        LOGGER.info("Round was played -> {}", roundPlayed);
 
-        return new RoundPlayed(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo), result.label, roundRepository.count(key));
+        return roundPlayed;
     }
 
     public void restart(String key) {
+        LOGGER.info("Restarting all rounds from Session key {}", key);
         roundRepository.delete(key);
     }
 
@@ -58,7 +62,6 @@ public class RoundService {
         else
             throw new CouldNotCheckResultException(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo));
 
-        LOGGER.info("Player One choose -> {} | Player Two choose -> {} | Result -> {}", playerOne, playerTwo, result.label);
         return result;
     }
 
