@@ -1,23 +1,21 @@
-package com.andrewsdosreis.rockpaperscissors.controller.output;
+package com.andrewsdosreis.rockpaperscissors.model;
 
 import java.util.Objects;
-
-import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class RoundPlayedDto {
+public class RoundPlayed {
     
     private String playerOne;
     private String playerTwo;
     private ResultEnum result;
     private Integer rounds;
     
-    public RoundPlayedDto() {
+    public RoundPlayed() {
     }
 
-    public RoundPlayedDto(String playerOne, String playerTwo, ResultEnum result, Integer rounds) {
+    public RoundPlayed(String playerOne, String playerTwo, ResultEnum result, Integer rounds) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.result = result;
@@ -60,10 +58,10 @@ public class RoundPlayedDto {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof RoundPlayedDto)) {
+        if (!(o instanceof RoundPlayed)) {
             return false;
         }
-        RoundPlayedDto roundPlayedDto = (RoundPlayedDto) o;
+        RoundPlayed roundPlayedDto = (RoundPlayed) o;
         return Objects.equals(playerOne, roundPlayedDto.playerOne) && Objects.equals(playerTwo, roundPlayedDto.playerTwo) && Objects.equals(result, roundPlayedDto.result) && Objects.equals(rounds, roundPlayedDto.rounds);
     }
 
