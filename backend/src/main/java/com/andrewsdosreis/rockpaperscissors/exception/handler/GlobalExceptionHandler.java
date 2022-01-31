@@ -2,7 +2,7 @@ package com.andrewsdosreis.rockpaperscissors.exception.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.andrewsdosreis.rockpaperscissors.exception.UserKeyHeaderIsNotPresent;
+import com.andrewsdosreis.rockpaperscissors.exception.SessionKeyHeaderIsNotPresent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +20,10 @@ public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     private static final String ERROR = "Error => {}";
 
-    @ExceptionHandler({ UserKeyHeaderIsNotPresent.class })
+    @ExceptionHandler({ SessionKeyHeaderIsNotPresent.class })
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<ErrorHandler> handleUserKeyHeaderIsNotPresent(UserKeyHeaderIsNotPresent e, HttpServletRequest request) {
+    public ResponseEntity<ErrorHandler> handleSessionKeyHeaderIsNotPresent(SessionKeyHeaderIsNotPresent e, HttpServletRequest request) {
         var errorHandler = createErrorHandler(HttpStatus.UNAUTHORIZED, e.getMessage(), request);
         LOGGER.error(ERROR, e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorHandler);
