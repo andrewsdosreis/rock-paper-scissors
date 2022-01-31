@@ -11,12 +11,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-import com.andrewsdosreis.rockpaperscissors.controller.output.RoundPlayedDto;
 import com.andrewsdosreis.rockpaperscissors.exception.handler.GlobalExceptionHandler;
 import com.andrewsdosreis.rockpaperscissors.interceptor.RequestInterceptor;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
+import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.model.TotalGamesPlayed;
 import com.andrewsdosreis.rockpaperscissors.service.RoundService;
 import com.andrewsdosreis.rockpaperscissors.service.TotalGamesPlayedService;
@@ -60,28 +60,28 @@ class RoundControllerTest {
     }
 
     @Test
-    void test_listRoundsFromUser_shouldReturn() throws Exception {
+    void test_listRoundsFromSession_shouldReturn() throws Exception {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
         List<Round> rounds = new ArrayList<>();
         when(roundService.listAllRoundsFromSessionKey(key)).thenReturn(rounds);
-        mockmvc.perform(get("/v1/rounds").header("User-Key", key))
+        mockmvc.perform(get("/v1/rounds").header(RoundController.SESSION_KEY, key))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void test_listRoundsFromUser_headerIsMissing() throws Exception {
+    void test_listRoundsFromSession_headerIsMissing() throws Exception {
         mockmvc.perform(get("/v1/rounds")).andExpect(status().isUnauthorized());
     }
 
     @Test
-    void test_listRoundsFromUser_headerIsEmpty() throws Exception {
-        mockmvc.perform(get("/v1/rounds").header("User-Key", Strings.EMPTY)).andExpect(status().isUnauthorized());
+    void test_listRoundsFromSession_headerIsEmpty() throws Exception {
+        mockmvc.perform(get("/v1/rounds").header(RoundController.SESSION_KEY, Strings.EMPTY)).andExpect(status().isUnauthorized());
     }
 
     @Test
     void test_playOneRound_shouldPlay() throws Exception {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
-        RoundPlayedDto roundPlayed = new RoundPlayedDto(RockPaperScissorsEnum.PAPER.toString(),
+        RoundPlayed roundPlayed = new RoundPlayed(RockPaperScissorsEnum.PAPER.toString(),
                                                         RockPaperScissorsEnum.ROCK.toString(), 
                                                         ResultEnum.PLAYER_ONE_WINS, 
                                                         1);
@@ -91,7 +91,7 @@ class RoundControllerTest {
         when(roundService.playOneRound(key)).thenReturn(roundPlayed);
         when(totalGamesPlayedService.increaseTotalGamesPlayed(any())).thenReturn(totalGamesPlayed);
 
-        mockmvc.perform(post("/v1/rounds").header("User-Key", key))
+        mockmvc.perform(post("/v1/rounds").header(RoundController.SESSION_KEY, key))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("playerOne").value(roundPlayed.getPlayerOne()))
                 .andExpect(jsonPath("playerTwo").value(roundPlayed.getPlayerTwo()))
@@ -105,14 +105,14 @@ class RoundControllerTest {
     }
 
     @Test
-    void test_restartRoundsFromUser_shouldRestart() throws Exception {
+    void test_restartRoundsFromSession_shouldRestart() throws Exception {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
-        mockmvc.perform(delete("/v1/rounds").header("User-Key", key))
+        mockmvc.perform(delete("/v1/rounds").header(RoundController.SESSION_KEY, key))
                .andExpect(status().isOk());
     }
     
     @Test
-    void test_restartRoundsFromUser_headerIsMissing() throws Exception {
+    void test_restartRoundsFromSession_headerIsMissing() throws Exception {
         mockmvc.perform(delete("/v1/rounds")).andExpect(status().isUnauthorized());
     }
 }

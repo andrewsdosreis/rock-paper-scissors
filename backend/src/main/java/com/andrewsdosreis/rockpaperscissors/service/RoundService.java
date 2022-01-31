@@ -3,11 +3,11 @@ package com.andrewsdosreis.rockpaperscissors.service;
 import java.util.List;
 import java.util.Random;
 
-import com.andrewsdosreis.rockpaperscissors.controller.output.RoundPlayedDto;
 import com.andrewsdosreis.rockpaperscissors.exception.CouldNotCheckResultException;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
+import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.repository.RoundRepository;
 
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class RoundService {
         return roundRepository.find(key);
     }
 
-    public RoundPlayedDto playOneRound(String key) {
+    public RoundPlayed playOneRound(String key) {
         RockPaperScissorsEnum playerOne = generatePlayerOneChoice();
         RockPaperScissorsEnum playerTwo = generatePlayerTwoChoice();
         ResultEnum result = checkResult(playerOne, playerTwo);
@@ -39,7 +39,7 @@ public class RoundService {
         Round round = new Round(playerOne.toString(), playerTwo.toString(), result.label);
         roundRepository.save(key, round);
 
-        return new RoundPlayedDto(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo), result, roundRepository.count(key));
+        return new RoundPlayed(RockPaperScissorsEnum.toString(playerOne), RockPaperScissorsEnum.toString(playerTwo), result, roundRepository.count(key));
     }
 
     public void restart(String key) {

@@ -5,18 +5,7 @@ import com.andrewsdosreis.rockpaperscissors.repository.TotalGamesPlayedRepositor
 
 public class TotalGamesPlayedDataSource implements TotalGamesPlayedRepository {
     
-    static TotalGamesPlayedDataSource instance = null;
     private TotalGamesPlayed data = new TotalGamesPlayed();
-
-    private TotalGamesPlayedDataSource() {
-    }
-
-    public static TotalGamesPlayedDataSource getInstance() {
-        if (instance == null) {
-            instance = new TotalGamesPlayedDataSource();
-        }
-        return instance;
-    }
 
     @Override
     public synchronized TotalGamesPlayed find() {

@@ -10,18 +10,7 @@ import com.andrewsdosreis.rockpaperscissors.repository.RoundRepository;
 
 public class RoundDataSource implements RoundRepository {
     
-    static RoundDataSource instance = null;
     private Map<String, List<Round>> data = new ConcurrentHashMap<>();
-
-    private RoundDataSource() {
-    }
-
-    public static RoundDataSource getInstance() {
-        if (instance == null) {
-            instance = new RoundDataSource();
-        }
-        return instance;
-    }
 
     @Override
     public void save(String key, Round round) {

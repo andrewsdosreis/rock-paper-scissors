@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.andrewsdosreis.rockpaperscissors.controller.output.RoundPlayedDto;
 import com.andrewsdosreis.rockpaperscissors.data.RoundDataSource;
 import com.andrewsdosreis.rockpaperscissors.exception.CouldNotCheckResultException;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
+import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.repository.RoundRepository;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -37,7 +37,7 @@ class RoundServiceTest {
 
     @BeforeAll
     void setUp() {
-        RoundRepository roundRepository = RoundDataSource.getInstance();
+        RoundRepository roundRepository = new RoundDataSource();
         random = Mockito.mock(Random.class);
         roundService = new RoundService(roundRepository, random);
     }
@@ -61,7 +61,7 @@ class RoundServiceTest {
         when(random.nextInt(3)).thenReturn(0);
 
         var expectedCounter = roundService.listAllRoundsFromSessionKey(key).size() + 1;
-        var expected = new RoundPlayedDto(RockPaperScissorsEnum.ROCK.toString(), RockPaperScissorsEnum.ROCK.toString(),
+        var expected = new RoundPlayed(RockPaperScissorsEnum.ROCK.toString(), RockPaperScissorsEnum.ROCK.toString(),
                 ResultEnum.DRAW, expectedCounter);
 
         var actual = roundService.playOneRound(key);
@@ -78,7 +78,7 @@ class RoundServiceTest {
         when(random.nextInt(3)).thenReturn(1);
 
         var expectedCounter = roundService.listAllRoundsFromSessionKey(key).size() + 1;
-        var expected = new RoundPlayedDto(RockPaperScissorsEnum.PAPER.toString(), RockPaperScissorsEnum.ROCK.toString(),
+        var expected = new RoundPlayed(RockPaperScissorsEnum.PAPER.toString(), RockPaperScissorsEnum.ROCK.toString(),
                 ResultEnum.PLAYER_ONE_WINS, expectedCounter);
 
         var actual = roundService.playOneRound(key);
@@ -95,7 +95,7 @@ class RoundServiceTest {
         when(random.nextInt(3)).thenReturn(2);
 
         var expectedCounter = roundService.listAllRoundsFromSessionKey(key).size() + 1;
-        var expected = new RoundPlayedDto(RockPaperScissorsEnum.SCISSORS.toString(), RockPaperScissorsEnum.ROCK.toString(),
+        var expected = new RoundPlayed(RockPaperScissorsEnum.SCISSORS.toString(), RockPaperScissorsEnum.ROCK.toString(),
                 ResultEnum.PLAYER_TWO_WINS, expectedCounter);
 
         var actual = roundService.playOneRound(key);

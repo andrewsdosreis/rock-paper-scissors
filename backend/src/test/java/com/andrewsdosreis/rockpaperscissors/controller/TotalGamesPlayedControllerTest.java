@@ -5,11 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.andrewsdosreis.rockpaperscissors.controller.output.TotalGamesPlayedDto;
 import com.andrewsdosreis.rockpaperscissors.exception.handler.GlobalExceptionHandler;
 import com.andrewsdosreis.rockpaperscissors.model.TotalGamesPlayed;
 import com.andrewsdosreis.rockpaperscissors.service.TotalGamesPlayedService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,9 +32,6 @@ class TotalGamesPlayedControllerTest {
     @Mock
     TotalGamesPlayedService totalGamesPlayedService;
 
-    @Mock
-    ObjectMapper objectMapper;
-
     @BeforeEach
     void setUp() {
         mockmvc = MockMvcBuilders.standaloneSetup(totalGamesPlayedController)
@@ -47,10 +42,8 @@ class TotalGamesPlayedControllerTest {
     @Test
     void test_find_shouldReturn() throws Exception {
         TotalGamesPlayed totalGamesPlayed = new TotalGamesPlayed();
-        TotalGamesPlayedDto totalGamesPlayedDto = new TotalGamesPlayedDto(0, 0, 0, 0);
 
         when(totalGamesPlayedService.find()).thenReturn(totalGamesPlayed);
-        when(objectMapper.convertValue(totalGamesPlayed, TotalGamesPlayedDto.class)).thenReturn(totalGamesPlayedDto);
 
         mockmvc.perform(get("/v1/total-games-played"))
                .andExpect(status().isOk())

@@ -2,8 +2,8 @@ package com.andrewsdosreis.rockpaperscissors.controller;
 
 import java.util.List;
 
-import com.andrewsdosreis.rockpaperscissors.controller.output.RoundPlayedDto;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
+import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.service.RoundService;
 import com.andrewsdosreis.rockpaperscissors.service.TotalGamesPlayedService;
 
@@ -28,20 +28,20 @@ public class RoundController extends BaseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Round>> listRoundsFromUser(@RequestHeader(name = USER_KEY) String key) {
+    public ResponseEntity<List<Round>> listRoundsFromSession(@RequestHeader(name = SESSION_KEY) String key) {
         List<Round> rounds = roundService.listAllRoundsFromSessionKey(key);
         return ok(rounds);
     }
 
     @PostMapping
-    public ResponseEntity<RoundPlayedDto> playOneRound(@RequestHeader(name = USER_KEY) String key) {
-        RoundPlayedDto roundPlayed = roundService.playOneRound(key);
+    public ResponseEntity<RoundPlayed> playOneRound(@RequestHeader(name = SESSION_KEY) String key) {
+        RoundPlayed roundPlayed = roundService.playOneRound(key);
         totalGamesPlayedService.increaseTotalGamesPlayed(roundPlayed.getResult());
         return ok(roundPlayed);
     }
 
     @DeleteMapping
-    public <T> ResponseEntity<T> restartRoundsFromUser(@RequestHeader(name = USER_KEY) String key) {
+    public <T> ResponseEntity<T> restartRoundsFromSession(@RequestHeader(name = SESSION_KEY) String key) {
         roundService.restart(key);
         return ok();
     }

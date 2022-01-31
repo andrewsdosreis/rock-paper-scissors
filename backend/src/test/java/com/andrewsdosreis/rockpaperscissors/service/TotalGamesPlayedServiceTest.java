@@ -23,7 +23,7 @@ class TotalGamesPlayedServiceTest {
 
     @BeforeAll
     void setUp() {
-        TotalGamesPlayedRepository totalGamesPlayedRepository = TotalGamesPlayedDataSource.getInstance();
+        TotalGamesPlayedRepository totalGamesPlayedRepository = new TotalGamesPlayedDataSource();
         totalGamesPlayedService = new TotalGamesPlayedService(totalGamesPlayedRepository);
     }
 

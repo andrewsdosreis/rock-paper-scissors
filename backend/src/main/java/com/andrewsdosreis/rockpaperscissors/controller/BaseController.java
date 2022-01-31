@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 public abstract class BaseController {
     
-    protected static final String USER_KEY = "User-Key";
+    protected static final String SESSION_KEY = "SESSION-KEY";
 
     protected <T> ResponseEntity<T> ok() {
         return ResponseEntity.ok().build();
