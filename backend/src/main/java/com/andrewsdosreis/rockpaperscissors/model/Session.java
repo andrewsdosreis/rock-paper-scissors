@@ -1,16 +1,16 @@
-package com.andrewsdosreis.rockpaperscissors.controller.output;
+package com.andrewsdosreis.rockpaperscissors.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class UserDto {
+public class Session {
     
     private String key;
 
-    public UserDto() {
+    public Session() {
     }
 
-    public UserDto(String key) {
+    public Session(String key) {
         this.key = key;
     }
 

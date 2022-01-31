@@ -1,16 +1,16 @@
 package com.andrewsdosreis.rockpaperscissors.service;
 
-import com.andrewsdosreis.rockpaperscissors.controller.output.UserDto;
+import com.andrewsdosreis.rockpaperscissors.model.Session;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class SessionService {
     
-    public UserDto createNewUser() {
+    public Session createNewSession() {
         String key = generateKey();
-        return new UserDto(key);
+        return new Session(key);
     }
 
     private String generateKey() {
