@@ -15,6 +15,4 @@ public interface RoundRepository {
 
     void delete(String key);
 
-    Integer count(String key);
-
 }

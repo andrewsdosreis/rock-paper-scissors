@@ -16,7 +16,6 @@ import com.andrewsdosreis.rockpaperscissors.interceptor.RequestInterceptor;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
-import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.model.TotalGamesPlayed;
 import com.andrewsdosreis.rockpaperscissors.service.RoundService;
 import com.andrewsdosreis.rockpaperscissors.service.TotalGamesPlayedService;
@@ -81,10 +80,9 @@ class RoundControllerTest {
     @Test
     void test_playOneRound_shouldPlay() throws Exception {
         String key = "OwkZLGZFJQRjBdzd19wCF3yS9kd22h";
-        RoundPlayed roundPlayed = new RoundPlayed(RockPaperScissorsEnum.PAPER.toString(),
-                                                        RockPaperScissorsEnum.ROCK.toString(),
-                                                        ResultEnum.PLAYER_ONE_WINS.label,
-                                                        1);
+        Round roundPlayed = new Round(RockPaperScissorsEnum.PAPER.toString(),
+                                      RockPaperScissorsEnum.ROCK.toString(),
+                                      ResultEnum.PLAYER_ONE_WINS.label);
 
         TotalGamesPlayed totalGamesPlayed = new TotalGamesPlayed();
 
@@ -95,8 +93,7 @@ class RoundControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("playerOne").value(roundPlayed.getPlayerOne()))
                 .andExpect(jsonPath("playerTwo").value(roundPlayed.getPlayerTwo()))
-                .andExpect(jsonPath("result").value(roundPlayed.getResult().toString()))
-                .andExpect(jsonPath("rounds").value(roundPlayed.getRounds()));
+                .andExpect(jsonPath("result").value(roundPlayed.getResult().toString()));
     }
 
     @Test

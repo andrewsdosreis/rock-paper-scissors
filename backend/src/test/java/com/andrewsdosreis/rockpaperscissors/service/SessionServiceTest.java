@@ -5,17 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.andrewsdosreis.rockpaperscissors.model.Session;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
+@TestInstance(Lifecycle.PER_CLASS)
 class SessionServiceTest {
 
     private SessionService sessionService;
 
-    @BeforeEach
+    @BeforeAll
     public void setUp() {
         sessionService = new SessionService();
     }

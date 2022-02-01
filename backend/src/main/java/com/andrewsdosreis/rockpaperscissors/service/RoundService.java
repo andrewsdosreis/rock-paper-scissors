@@ -1,13 +1,11 @@
 package com.andrewsdosreis.rockpaperscissors.service;
 
 import java.util.List;
-import java.util.Random;
 
 import com.andrewsdosreis.rockpaperscissors.exception.CouldNotCheckResultException;
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.RockPaperScissorsEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
-import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.repository.RoundRepository;
 
 import org.slf4j.Logger;
@@ -19,12 +17,12 @@ public class RoundService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RoundService.class);
 
-    private Random random;
+    private RockPaperScissorsRandom rockPaperScissorsRandom;
     private RoundRepository roundRepository;
 
-    public RoundService(RoundRepository roundRepository, Random random) {
+    public RoundService(RoundRepository roundRepository, RockPaperScissorsRandom rockPaperScissorsRandom) {
         this.roundRepository = roundRepository;
-        this.random = random;
+        this.rockPaperScissorsRandom = rockPaperScissorsRandom;
     }
 
     public List<Round> listAllRoundsFromSessionKey(String key) {
@@ -32,14 +30,14 @@ public class RoundService {
         return roundRepository.find(key);
     }
 
-    public RoundPlayed playOneRound(String key) {
+    public Round playOneRound(String key) {
         LOGGER.info("Starting to play");
         RockPaperScissorsEnum playerOne = generatePlayerOneChoice();
         RockPaperScissorsEnum playerTwo = generatePlayerTwoChoice();
         ResultEnum result = checkResult(playerOne, playerTwo);
-        roundRepository.save(key, new Round(playerOne.toString(), playerTwo.toString(), result.label));
-
-        RoundPlayed roundPlayed = new RoundPlayed(playerOne.toString(), playerTwo.toString(), result.label, roundRepository.count(key));
+        
+        Round roundPlayed = new Round(playerOne.toString(), playerTwo.toString(), result.label);
+        roundRepository.save(key, roundPlayed);
         LOGGER.info("Round was played -> {}", roundPlayed);
 
         return roundPlayed;
@@ -66,8 +64,7 @@ public class RoundService {
     }
 
     private RockPaperScissorsEnum generatePlayerOneChoice() {
-        Integer randomPlay = random.nextInt(3);
-        return RockPaperScissorsEnum.valueOf(randomPlay);
+        return rockPaperScissorsRandom.generateRandomChoice();
     }
 
     private RockPaperScissorsEnum generatePlayerTwoChoice() {

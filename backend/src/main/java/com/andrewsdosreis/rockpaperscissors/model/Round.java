@@ -1,5 +1,7 @@
 package com.andrewsdosreis.rockpaperscissors.model;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -28,6 +30,22 @@ public class Round {
 
     public String getResult() {
         return this.result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Round)) {
+            return false;
+        }
+        Round round = (Round) o;
+        return Objects.equals(playerOne, round.playerOne) && Objects.equals(playerTwo, round.playerTwo) && Objects.equals(result, round.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerOne, playerTwo, result);
     }
 
     @Override

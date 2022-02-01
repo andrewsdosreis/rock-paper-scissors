@@ -28,9 +28,4 @@ public class RoundDataSource implements RoundRepository {
     public void delete(String key) {
         data.remove(key);
     }
-
-    @Override
-    public Integer count(String key) {
-        return find(key).size();
-    }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.andrewsdosreis.rockpaperscissors.model.ResultEnum;
 import com.andrewsdosreis.rockpaperscissors.model.Round;
-import com.andrewsdosreis.rockpaperscissors.model.RoundPlayed;
 import com.andrewsdosreis.rockpaperscissors.service.RoundService;
 import com.andrewsdosreis.rockpaperscissors.service.TotalGamesPlayedService;
 
@@ -35,8 +34,8 @@ public class RoundController extends BaseController {
     }
 
     @PostMapping
-    public ResponseEntity<RoundPlayed> playOneRound(@RequestHeader(name = SESSION_KEY) String key) {
-        RoundPlayed roundPlayed = roundService.playOneRound(key);
+    public ResponseEntity<Round> playOneRound(@RequestHeader(name = SESSION_KEY) String key) {
+        Round roundPlayed = roundService.playOneRound(key);
         totalGamesPlayedService.increaseTotalGamesPlayed(ResultEnum.valueOfLabel(roundPlayed.getResult()));
         return ok(roundPlayed);
     }
