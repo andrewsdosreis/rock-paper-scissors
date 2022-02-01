@@ -10,7 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,61 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RoundList() {
+export default function RoundList(props) {
   const classes = useStyles();
-
-  const [rounds, setRounds] = useState([]);
-  useEffect(() => {
-    RoundsGet()
-  }, [])
-
-  const RoundsGet = () => {
-    var url = "http://localhost:8080/v1/rounds";
-
-    let headers = new Headers();
-
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', '*/*');
-    headers.append('Origin', 'http://localhost:3000');
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('SESSION-KEY', 'OwkZLGZFJQRjBdzd19wCF3yS9kd22h');
-
-    fetch(url, {
-      mode: 'cors',
-      method: 'GET',
-      headers: headers
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setRounds(result)
-        }
-      )
-  }
-
-  const Restart = () => {
-    var url = "http://localhost:8080/v1/rounds";
-
-    let headers = new Headers();
-
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', '*/*');
-    headers.append('Origin', 'http://localhost:3000');
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('SESSION-KEY', 'OwkZLGZFJQRjBdzd19wCF3yS9kd22h');
-
-    fetch(url, {
-      mode: 'cors',
-      method: 'DELETE',
-      headers: headers
-    }).then(
-      () => {
-        alert('Session has been restarded')
-      }
-    )
-
-    window.location.href = '/';
-  }
 
   return (
     <div className={classes.root}>
@@ -98,7 +45,7 @@ export default function RoundList() {
               </Typography>
             </Box>
             <Box>
-              <Button variant="contained" onClick={() => Restart()} color="primary">
+              <Button variant="contained" onClick={() => props.action()} color="primary">
                 RESTART
               </Button>
             </Box>
@@ -113,7 +60,7 @@ export default function RoundList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rounds.map((round) => (
+                {props.rounds.map((round) => (
                   <TableRow>
                     <TableCell align="left">{round.playerOne}</TableCell>
                     <TableCell align="left">{round.playerTwo}</TableCell>
