@@ -41,12 +41,7 @@ export default function RoundList(props) {
           <Box display="flex">
             <Box flexGrow={1}>
               <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                ROUNDS PLAYED
-              </Typography>
-            </Box>
-            <Box flexGrow={1}>
-              <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                {props.rounds.size}
+                ROUNDS PLAYED IN THIS SESSION: {props.rounds.length}
               </Typography>
             </Box>
             <Box>
