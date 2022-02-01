@@ -10,7 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import { default as React, useState } from "react";
+import { default as React } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +46,7 @@ export default function RoundPlay(props) {
             </Box>
             <Box>
               <Button variant="contained" onClick={() => props.action()} color="primary">
-                PLAY
+                PLAY GAME
               </Button>
             </Box>
           </Box>
@@ -54,9 +54,9 @@ export default function RoundPlay(props) {
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">PLAYER ONE</TableCell>
-                  <TableCell align="left">PLAYER TWO</TableCell>
-                  <TableCell align="left">RESULT</TableCell>
+                  <TableCell align="left"><b>PLAYER ONE</b></TableCell>
+                  <TableCell align="left"><b>PLAYER TWO</b></TableCell>
+                  <TableCell align="left"><b>RESULT</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

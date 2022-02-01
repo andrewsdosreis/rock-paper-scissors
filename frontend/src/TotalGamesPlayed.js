@@ -48,10 +48,10 @@ export default function TotalGamesPlayed(props) {
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">TOTAL GAMES PLAYED</TableCell>
-                  <TableCell align="left">TOTAL PLAYER ONE WINS</TableCell>
-                  <TableCell align="left">TOTAL PLAYER TWO WINS</TableCell>
-                  <TableCell align="left">TOTAL DRAWS</TableCell>
+                  <TableCell align="left"><b>TOTAL GAMES PLAYED</b></TableCell>
+                  <TableCell align="left"><b>TOTAL PLAYER ONE WINS</b></TableCell>
+                  <TableCell align="left"><b>TOTAL PLAYER TWO WINS</b></TableCell>
+                  <TableCell align="left"><b>TOTAL DRAWS</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

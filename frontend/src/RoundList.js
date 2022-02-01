@@ -44,9 +44,14 @@ export default function RoundList(props) {
                 ROUNDS PLAYED
               </Typography>
             </Box>
+            <Box flexGrow={1}>
+              <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                {props.rounds.size}
+              </Typography>
+            </Box>
             <Box>
               <Button variant="contained" onClick={() => props.action()} color="primary">
-                RESTART
+                RESTART GAME
               </Button>
             </Box>
           </Box>
@@ -54,9 +59,9 @@ export default function RoundList(props) {
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">PLAYER ONE</TableCell>
-                  <TableCell align="left">PLAYER TWO</TableCell>
-                  <TableCell align="left">RESULT</TableCell>
+                  <TableCell align="left"><b>PLAYER ONE</b></TableCell>
+                  <TableCell align="left"><b>PLAYER TWO</b></TableCell>
+                  <TableCell align="left"><b>RESULT</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
