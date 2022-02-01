@@ -3,13 +3,19 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from './Navbar';
 import RoundList from './RoundList';
 import RoundPlay from './RoundPlay';
+import TotalGamesPlayed from './TotalGamesPlayed';
 
 export default function App() {
   const [roundPlayed, setRoundPlayed] = useState("");
   const [rounds, setRounds] = useState([]);
-  
+  const [totalGamesPlayed, setTotalGamesPlayed] = useState("");
+
   useEffect(() => {
     RoundsGet()
+  }, [roundPlayed])
+
+  useEffect(() => {
+    GetTotalGamesPlayed()
   }, [roundPlayed])
 
   useEffect(() => {
@@ -18,9 +24,9 @@ export default function App() {
 
   const StartSession = () => {
     var url = "http://localhost:8080/v1/sessions";
-    
+
     let headers = new Headers();
-    
+
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', '*/*');
     headers.append('Origin', 'http://localhost:3000');
@@ -111,11 +117,34 @@ export default function App() {
     )
   }
 
+  const GetTotalGamesPlayed = () => {
+    var url = "http://localhost:8080/v1/total-games-played";
+
+    let headers = new Headers();
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', '*/*');
+    headers.append('Origin', 'http://localhost:3000');
+    headers.append('Access-Control-Allow-Origin', '*');
+
+    fetch(url, {
+      mode: 'cors',
+      method: 'GET',
+      headers: headers
+    }).then(res => res.json())
+      .then(
+        (responseBody) => {
+          setTotalGamesPlayed(responseBody);
+        }
+      )
+  }
+
   return (
     <Router>
       <Navbar />
       <RoundPlay roundPlayed={roundPlayed} action={Play} />
       <RoundList rounds={rounds} action={Restart} />
+      <TotalGamesPlayed totalGamesPlayed={totalGamesPlayed} />
     </Router>
   );
 }
