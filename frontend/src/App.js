@@ -17,7 +17,7 @@ export default function App() {
 
   useEffect(() => {
     GetTotalGamesPlayed()
-  }, [roundPlayed, rounds])
+  }, [rounds])
 
   useEffect(() => {
     StartSession()
@@ -40,7 +40,6 @@ export default function App() {
       }).then(res => res.json())
         .then(
           (responseBody) => {
-            console.log('New Session Created!');
             localStorage.setItem("SESSION-KEY", responseBody.key);
           }
         )
@@ -51,70 +50,87 @@ export default function App() {
     var requestUrl = url.baseUrl + url.v1.rounds;
 
     let headers = new Headers();
-
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', '*/*');
     headers.append('Origin', 'http://localhost:3000');
     headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
+
+    if (localStorage.getItem("SESSION-KEY") != null)
+      headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
 
     fetch(requestUrl, {
       mode: 'cors',
       method: 'POST',
       headers: headers
-    }).then(res => res.json())
-      .then(
-        (responseBody) => {
-          console.log('Game Played');
-          setRoundPlayed(responseBody);
-        }
-      )
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong during the play\nPlease refresh the page');
+      }
+    }).then(
+      (responseBody) => {
+        setRoundPlayed(responseBody);
+      }
+    ).catch(error => alert(error));
   }
 
   const RoundsGet = () => {
     var requestUrl = url.baseUrl + url.v1.rounds;
 
     let headers = new Headers();
-
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', '*/*');
     headers.append('Origin', 'http://localhost:3000');
     headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
+
+    if (localStorage.getItem("SESSION-KEY") != null)
+      headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
 
     fetch(requestUrl, {
       mode: 'cors',
       method: 'GET',
       headers: headers
-    }).then(res => res.json())
-      .then(
-        (result) => {
-          setRounds(result);
-        }
-      )
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong trying to list all rounds from session\nPlease refresh the page');
+      }
+    }).then(
+      (result) => {
+        setRounds(result);
+      }
+    ).catch(error => alert(error));
   }
 
   const Restart = () => {
     var requestUrl = url.baseUrl + url.v1.rounds;
 
     let headers = new Headers();
-
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', '*/*');
     headers.append('Origin', 'http://localhost:3000');
     headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
+
+    if (localStorage.getItem("SESSION-KEY") != null)
+      headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
 
     fetch(requestUrl, {
       mode: 'cors',
       method: 'DELETE',
       headers: headers
+    }).then((response) => {
+      if (response.ok) {
+        return true;
+      } else {
+        throw new Error('Something went wrong trying to restart the session\nPlease refresh the page');
+      }
     }).then(
       () => {
-        console.log('Session has been restarded');
         setRounds([]);
       }
-    )
+    ).catch(error => alert(error));
   }
 
   const GetTotalGamesPlayed = () => {
