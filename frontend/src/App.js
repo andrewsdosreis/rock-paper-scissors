@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { url } from "./ExternalApiConfig";
 import Navbar from './Navbar';
 import RoundList from './RoundList';
 import RoundPlay from './RoundPlay';
@@ -16,15 +17,14 @@ export default function App() {
 
   useEffect(() => {
     GetTotalGamesPlayed()
-  }, [roundPlayed])
+  }, [roundPlayed, rounds])
 
   useEffect(() => {
     StartSession()
   }, [])
 
   const StartSession = () => {
-    var url = "http://localhost:8080/v1/sessions";
-
+    var requestUrl = url.baseUrl + url.v1.sessions;
     let headers = new Headers();
 
     headers.append('Content-Type', 'application/json');
@@ -33,7 +33,7 @@ export default function App() {
     headers.append('Access-Control-Allow-Origin', '*');
 
     if (localStorage.getItem("SESSION-KEY") == null) {
-      fetch(url, {
+      fetch(requestUrl, {
         mode: 'cors',
         method: 'GET',
         headers: headers
@@ -48,7 +48,7 @@ export default function App() {
   }
 
   const Play = () => {
-    var url = "http://localhost:8080/v1/rounds";
+    var requestUrl = url.baseUrl + url.v1.rounds;
 
     let headers = new Headers();
 
@@ -58,7 +58,7 @@ export default function App() {
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
 
-    fetch(url, {
+    fetch(requestUrl, {
       mode: 'cors',
       method: 'POST',
       headers: headers
@@ -72,7 +72,7 @@ export default function App() {
   }
 
   const RoundsGet = () => {
-    var url = "http://localhost:8080/v1/rounds";
+    var requestUrl = url.baseUrl + url.v1.rounds;
 
     let headers = new Headers();
 
@@ -82,7 +82,7 @@ export default function App() {
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
 
-    fetch(url, {
+    fetch(requestUrl, {
       mode: 'cors',
       method: 'GET',
       headers: headers
@@ -95,7 +95,7 @@ export default function App() {
   }
 
   const Restart = () => {
-    var url = "http://localhost:8080/v1/rounds";
+    var requestUrl = url.baseUrl + url.v1.rounds;
 
     let headers = new Headers();
 
@@ -105,7 +105,7 @@ export default function App() {
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
 
-    fetch(url, {
+    fetch(requestUrl, {
       mode: 'cors',
       method: 'DELETE',
       headers: headers
@@ -118,7 +118,7 @@ export default function App() {
   }
 
   const GetTotalGamesPlayed = () => {
-    var url = "http://localhost:8080/v1/total-games-played";
+    var requestUrl = url.baseUrl + url.v1.total_games_played;
 
     let headers = new Headers();
 
@@ -127,7 +127,7 @@ export default function App() {
     headers.append('Origin', 'http://localhost:3000');
     headers.append('Access-Control-Allow-Origin', '*');
 
-    fetch(url, {
+    fetch(requestUrl, {
       mode: 'cors',
       method: 'GET',
       headers: headers
