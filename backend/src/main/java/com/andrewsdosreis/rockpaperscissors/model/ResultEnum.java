@@ -11,9 +11,9 @@ public enum ResultEnum {
     }
 
     public static ResultEnum valueOfLabel(String label) {
-        for (ResultEnum e : values()) {
-            if (e.label.equals(label)) {
-                return e;
+        for (var resultEnum : values()) {
+            if (resultEnum.label.equals(label)) {
+                return resultEnum;
             }
         }
         return null;

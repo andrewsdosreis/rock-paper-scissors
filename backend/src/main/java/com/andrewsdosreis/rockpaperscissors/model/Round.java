@@ -11,9 +11,6 @@ public class Round {
     private String playerTwo;
     private String result;
 
-    public Round() {
-    }
-
     public Round(String playerOne, String playerTwo, String result) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;

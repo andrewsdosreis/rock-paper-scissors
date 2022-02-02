@@ -12,18 +12,6 @@ public class ErrorHandler {
 	private String path;
 	private String method;
 
-	public ErrorHandler() {
-	}
-
-	public ErrorHandler(Long timestamp, Integer status, String error, String message, String path, String method) {
-		this.timestamp = timestamp;
-		this.status = status;
-		this.error = error;
-		this.message = message;
-		this.path = path;
-		this.method = method;
-	}
-
 	public Long getTimestamp() {
 		return this.timestamp;
 	}

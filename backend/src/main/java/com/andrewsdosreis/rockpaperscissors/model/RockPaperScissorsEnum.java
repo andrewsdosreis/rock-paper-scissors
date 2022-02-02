@@ -19,10 +19,10 @@ public enum RockPaperScissorsEnum {
         return null;
     }
 
-    public static String toString(RockPaperScissorsEnum e) {
-        if (e == null)
+    public static String toString(RockPaperScissorsEnum rockPaperScissorsEnum) {
+        if (rockPaperScissorsEnum == null)
             return "";
         else
-            return e.toString();
+            return rockPaperScissorsEnum.toString();
     }
 }
