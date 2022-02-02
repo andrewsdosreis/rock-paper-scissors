@@ -41,7 +41,7 @@ Wait for the process and access the application:
 - http://localhost:3000
 
 ## Code Coverage
-To see code coverage [click here](https://sonarcloud.io/summary/overall?id=andrewsdosreis_rock-paper-scissors).
+You can find the code coverage [here](https://sonarcloud.io/summary/overall?id=andrewsdosreis_rock-paper-scissors).
 
 ![image](https://user-images.githubusercontent.com/19553909/152074836-5f4647e7-f3bd-4fe4-a5a8-854d1e993ae9.png)
 
