@@ -92,11 +92,7 @@ export default function App() {
       method: 'GET',
       headers: headers
     }).then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Something went wrong trying to list all rounds from session\nPlease refresh the page');
-      }
+      return response.json();
     }).then(
       (result) => {
         setRounds(result);
