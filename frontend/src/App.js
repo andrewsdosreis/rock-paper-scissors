@@ -12,16 +12,16 @@ export default function App() {
   const [totalGamesPlayed, setTotalGamesPlayed] = useState("");
 
   useEffect(() => {
+    StartSession()
+  }, [])
+
+  useEffect(() => {
     RoundsGet()
   }, [roundPlayed])
 
   useEffect(() => {
     GetTotalGamesPlayed()
   }, [rounds])
-
-  useEffect(() => {
-    StartSession()
-  }, [])
 
   const StartSession = () => {
     var requestUrl = url.baseUrl + url.v1.sessions;
@@ -44,6 +44,30 @@ export default function App() {
           }
         )
     }
+  }
+
+  const RoundsGet = () => {
+    var requestUrl = url.baseUrl + url.v1.rounds;
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', '*/*');
+    headers.append('Origin', 'http://localhost:3000');
+    headers.append('Access-Control-Allow-Origin', '*');
+
+    if (localStorage.getItem("SESSION-KEY") != null)
+      headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
+
+    fetch(requestUrl, {
+      mode: 'cors',
+      method: 'GET',
+      headers: headers
+    }).then(res => res.json())
+      .then(
+        (result) => {
+          setRounds(result);
+        }
+      ).catch(error => window.location.href="/");
   }
 
   const Play = () => {
@@ -71,31 +95,6 @@ export default function App() {
     }).then(
       (responseBody) => {
         setRoundPlayed(responseBody);
-      }
-    ).catch(error => alert(error));
-  }
-
-  const RoundsGet = () => {
-    var requestUrl = url.baseUrl + url.v1.rounds;
-
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', '*/*');
-    headers.append('Origin', 'http://localhost:3000');
-    headers.append('Access-Control-Allow-Origin', '*');
-
-    if (localStorage.getItem("SESSION-KEY") != null)
-      headers.append('SESSION-KEY', localStorage.getItem("SESSION-KEY"));
-
-    fetch(requestUrl, {
-      mode: 'cors',
-      method: 'GET',
-      headers: headers
-    }).then((response) => {
-      return response.json();
-    }).then(
-      (result) => {
-        setRounds(result);
       }
     ).catch(error => alert(error));
   }
