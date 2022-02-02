@@ -5,9 +5,9 @@ Rock Paper Scissors Game for a Tech Challenge
 You have two options to run:
 
 ## First Option: using docker
-What do you need to run?
-
-Docker and Docker-Compose
+**What do you need to run?**
+- Docker
+- Docker-Compose
 
 To start the application, access */rock-paper-scissors* folder and run the command:
 ````
@@ -23,16 +23,16 @@ docker-compose down
 ````
 
 ## Second Option: using NodeServer and Java
-What do you need to run?
+**What do you need to run?**
 - Node version 16 or higher
 - Java 11 or higher
 
-First, go to  */rock-paper-scissors/backend* and run the command below to start the JAVA backend application:
+First we need to start the JAVA backend application. Go to  */rock-paper-scissors/backend* and run the command:
 ````
 ./gradlew bootrun
 ````
 
-After this, go to */rock-paper-scissors/frontend* and run these commands:
+After this, we can start the frontend application. Go to */rock-paper-scissors/frontend* and run these commands:
 ````
 npm install
 npm start
