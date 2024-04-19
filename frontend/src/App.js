@@ -11,6 +11,7 @@ export default function App() {
   const [rounds, setRounds] = useState([]);
   const [totalGamesPlayed, setTotalGamesPlayed] = useState("");
 
+
   useEffect(() => {
     StartSession()
   }, [])
