@@ -1,6 +1,6 @@
 package com.andrewsdosreis.rockpaperscissors.exception.handler;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.andrewsdosreis.rockpaperscissors.exception.SessionKeyHeaderIsNotPresent;
 

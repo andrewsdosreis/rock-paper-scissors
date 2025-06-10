@@ -3,8 +3,8 @@ package com.andrewsdosreis.rockpaperscissors.interceptor;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.andrewsdosreis.rockpaperscissors.exception.SessionKeyHeaderIsNotPresent;
 

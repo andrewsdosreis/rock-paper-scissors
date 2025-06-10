@@ -1,11 +1,11 @@
-# FROM openjdk:11-jre-slim
+# FROM openjdk:21-jre-slim
 # COPY ./build/libs/*-0.0.1-SNAPSHOT.jar /usr/app/app.jar
 # WORKDIR /usr/app
 # EXPOSE 8080
 # ENTRYPOINT ["/bin/sh", "-c" , "java -jar app.jar"]
 
 # build
-FROM gradle:7.3.3-jdk-alpine AS TEMP_BUILD_IMAGE
+FROM gradle:8-jdk21-alpine AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
 COPY build.gradle settings.gradle $APP_HOME
@@ -18,7 +18,7 @@ COPY . .
 RUN gradle clean build
 
 # container
-FROM openjdk:11-jre-slim
+FROM openjdk:21-jre-slim
 ENV ARTIFACT_NAME=rock-paper-scissors-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
