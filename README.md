@@ -25,7 +25,7 @@ docker-compose down
 ## Second Option: using NodeServer and Java
 **What do you need to run?**
 - Node version 16 or higher
-- Java 11 or higher
+- Java 21 or higher
 
 First we need to start the JAVA backend application. Go to  */rock-paper-scissors/backend* and run the command:
 ````
