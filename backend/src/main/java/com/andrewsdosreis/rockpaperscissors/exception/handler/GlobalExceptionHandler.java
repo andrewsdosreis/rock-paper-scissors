@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,15 @@ public class GlobalExceptionHandler {
         var errorHandler = createErrorHandler(HttpStatus.UNAUTHORIZED, e.getMessage(), request);
         LOGGER.error(ERROR, e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorHandler);
+    }
+
+    @ExceptionHandler({ MissingRequestHeaderException.class })
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorHandler> handleMissingRequestHeader(MissingRequestHeaderException e, HttpServletRequest request) {
+        var errorHandler = createErrorHandler(HttpStatus.BAD_REQUEST, "Required header 'SESSION-KEY' is missing", request);
+        LOGGER.error(ERROR, e.getMessage());
+        return ResponseEntity.badRequest().body(errorHandler);
     }
 
     @ExceptionHandler({ RuntimeException.class })
